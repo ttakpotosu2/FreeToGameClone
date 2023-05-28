@@ -10,9 +10,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class GamesViewModel @Inject constructor(
-    private val repository: GamesRepository
+class BrowserGamesViewModel @Inject constructor(
+    private val repository: BrowserGamesRepository
 ): ViewModel() {
 
-    fun games() = repository.getGames().cachedIn(viewModelScope)
+    fun games() = repository.getBrowserGames().cachedIn(viewModelScope)
 }

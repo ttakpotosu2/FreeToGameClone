@@ -1,5 +1,3 @@
-package com.example.freetogameclone.presentation.sceens
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -11,11 +9,12 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.freetogameclone.presentation.GamesListItem
+import com.example.freetogameclone.presentation.games.BrowserGamesViewModel
 import com.example.freetogameclone.presentation.games.GamesViewModel
 
 @Composable
-fun GamesScreen(
-    viewModel: GamesViewModel = hiltViewModel(),
+fun BrowserGamesScreen(
+    viewModel: BrowserGamesViewModel = hiltViewModel(),
 ) {
     val gamesList = viewModel.games().collectAsLazyPagingItems()
 

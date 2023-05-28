@@ -2,9 +2,11 @@ package com.example.freetogameclone.presentation.sceens
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Text
+import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
@@ -22,14 +24,12 @@ import com.example.freetogameclone.R
 @Composable
 fun HomeScreen() {
 
-    val scrollState = rememberScrollState(0)
-
     Column (
-        modifier = Modifier.fillMaxSize().background(Color.Black)
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black)
     ){
-
         Spacer(modifier = Modifier.weight(1f))
-
         Row(
             modifier = Modifier.padding(horizontal = 16.dp)
         ) {
@@ -58,36 +58,29 @@ fun HomeScreen() {
             modifier = Modifier.padding(16.dp)
         )
         Spacer(modifier = Modifier.weight(1f))
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-            modifier = Modifier.horizontalScroll(scrollState)
-        ) {
-
-            CategoryCard(
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ){
+            item { CategoryCard(
                 categoryName = "all",
                 backgroundColor = Color.Cyan
             )
-            CategoryCard(
+            }
+            item {CategoryCard(
                 categoryName = "console",
                 backgroundColor = Color.Magenta
             )
-        }
-
-        Spacer(modifier = Modifier.weight(1f))
-
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-            modifier = Modifier.horizontalScroll(scrollState)
-        ) {
-
-            CategoryCard(
+            }
+            item { CategoryCard(
                 categoryName = "genre",
                 backgroundColor = Color.Yellow
-            )
-            CategoryCard(
+            ) }
+            item { CategoryCard(
                 categoryName = "latest games",
                 backgroundColor = Color.LightGray
-            )
+            ) }
         }
         Spacer(modifier = Modifier.weight(1f))
     }
@@ -101,7 +94,7 @@ fun CategoryCard(
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(20.dp))
-            .size(height = 250.dp, width = 250.dp)
+            .height(200.dp)
             .background(backgroundColor)
             .clickable {}
             .padding(16.dp),
@@ -110,7 +103,7 @@ fun CategoryCard(
         Text(
             text = categoryName,
             style = TextStyle(
-                fontSize = 38.sp,
+                fontSize = 28.sp,
                 color = Color.Black,
             )
         )

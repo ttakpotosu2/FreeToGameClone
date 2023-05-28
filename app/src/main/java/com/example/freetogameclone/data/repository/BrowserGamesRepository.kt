@@ -11,15 +11,15 @@ import com.example.freetogameclone.domain.GamesEntity
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GamesRepository @Inject constructor(
+class BrowserGamesRepository @Inject constructor(
     private val api: FreeToGameApi,
     private val database: GamesDatabase
 ){
 
     @OptIn(ExperimentalPagingApi::class)
-    fun getGames(): Flow<PagingData<GamesEntity>> = Pager(
+    fun getBrowserGames(): Flow<PagingData<GamesEntity>> = Pager(
         config = PagingConfig(pageSize = 10),
-        pagingSourceFactory = {database.gamesDao().getGames()},
+        pagingSourceFactory = {database.gamesDao().getPlatform("Web Browser")},
         remoteMediator = GamesRemoteMediator(
             api, database
         )
