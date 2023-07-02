@@ -19,7 +19,7 @@ interface GamesDao {
     suspend fun deleteGames()
 
     @Query("SELECT * FROM games_entity_table WHERE id = :id ")
-    suspend fun getGame(id: Int): GamesEntity
+    suspend fun getGame(id: String): GamesEntity
 
     @Query("SELECT * FROM games_entity_table WHERE platform IN (:platform) ")
     fun getPlatform(platform: String): PagingSource<Int, GamesEntity>

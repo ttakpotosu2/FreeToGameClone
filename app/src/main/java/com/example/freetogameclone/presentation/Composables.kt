@@ -20,27 +20,28 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.example.freetogameclone.R
 import com.example.freetogameclone.domain.GamesEntity
+import com.example.freetogameclone.presentation.navigation.Screens
 
 @Composable
 fun GamesListItem(
-    gameDetails: GamesEntity
+    gameDetails: GamesEntity, navHostController: NavHostController
 ) {
     val imagePainter = rememberAsyncImagePainter(
         model = gameDetails.thumbnail,
         error = painterResource(id = R.drawable.ic_launcher_background)
     )
-    Column(
-        modifier = Modifier
-            .size(width = 200.dp, height = 350.dp)
-            .clickable { }
-            .clip(RoundedCornerShape(20.dp))
-            .background(Color.White)
-    ) {
+    Column(modifier = Modifier
+        .size(width = 200.dp, height = 350.dp)
+        .clickable {navHostController.navigate(Screens.DetailScreen.route + "/${gameDetails.id}")}
+        .clip(RoundedCornerShape(20.dp))
+        .background(Color.White)) {
         Image(
             painter = imagePainter,
             contentDescription = null,
@@ -48,29 +49,24 @@ fun GamesListItem(
             modifier = Modifier.height(150.dp)
         )
         Text(
-            text = gameDetails.title,
-            modifier = Modifier.padding(8.dp),
-            style = TextStyle(
-                fontSize = 20.sp,
-                color = Color.Black,
-                fontWeight = FontWeight.Bold
+            text = gameDetails.title, modifier = Modifier.padding(8.dp), style = TextStyle(
+                fontSize = 20.sp, color = Color.Black, fontWeight = FontWeight.Bold
             )
         )
         Text(
             text = gameDetails.shortDescription,
             modifier = Modifier.padding(8.dp),
-            maxLines = 5,
-            //  overFlow = TextOverflow.Ellipsis,
+            maxLines = 4,
             style = TextStyle(
                 fontSize = 20.sp,
                 color = Color.Black,
-            )
+            ),
+            overflow = TextOverflow.Ellipsis
         )
         Spacer(modifier = Modifier.weight(1f))
         Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .height(40.dp)
+            verticalAlignment = Alignment.CenterVertically, modifier = Modifier
+                // .height(30.dp)
                 .padding(8.dp)
         ) {
             Image(
@@ -80,17 +76,18 @@ fun GamesListItem(
                     } else {
                         R.drawable.web_logo
                     }
-                ),
-                contentDescription = null,
-                modifier = Modifier.size(24.dp)
+                ), contentDescription = null, modifier = Modifier.size(20.dp)
             )
             Spacer(modifier = Modifier.weight(1f))
             Text(
                 text = gameDetails.genre,
-                color = Color.White,
+                style = TextStyle(
+                    color = Color.White, fontSize = 12.sp
+                ),
                 modifier = Modifier
-                    .background(Color.Black)
                     .clip(RoundedCornerShape(100.dp))
+                    .background(Color.Black)
+                    .padding(4.dp)
             )
         }
     }
